@@ -13,11 +13,13 @@ const AuthModule = {
     
     /**
      * Demo login function
-     * Accepts username "user" and password 0-9
+     * Accepts username "user" and password any digits (0-9)
      */
     login(username, password) {
-        // Validate credentials
-        if (username.toLowerCase() === 'user' && /^[0-9]$/.test(password)) {
+        // Validate credentials - username must be 'user' and password must be digits only
+        const isNumeric = /^[0-9]+$/.test(password);
+        
+        if (username.toLowerCase() === 'user' && isNumeric && password.length > 0) {
             // Create demo user data
             this.currentUser = {
                 name: 'أحمد محمد إبراهيم',
@@ -35,7 +37,7 @@ const AuthModule = {
             return { success: true, user: this.currentUser };
         }
         
-        return { success: false, error: 'بيانات الدخول غير صحيحة. جرب user وأي رقم من 0 لـ 9' };
+        return { success: false, error: 'بيانات الدخول غير صحيحة. جرب user وأي أرقام (مثال: 1234)' };
     },
     
     /**
