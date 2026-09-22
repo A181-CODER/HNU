@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - منصة جامعة حلوان الذكية</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #020617;
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        
+        /* Background Grid */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0,255,204,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,204,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+        
+        .login-container {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0,255,204,0.2);
+            border-radius: 25px;
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 0 40px rgba(0,255,204,0.1);
+        }
+        
+        .logo-section {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        .logo-section img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #00ffcc;
+            margin-bottom: 20px;
+        }
+        
+        .logo-section h1 {
+            font-size: 24px;
+            color: #00ffcc;
+            margin-bottom: 10px;
+        }
+        
+        .logo-section p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(0,255,204,0.05);
+            border: 1px solid rgba(0,255,204,0.2);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            transition: 0.3s;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #00ffcc;
+            box-shadow: 0 0 15px rgba(0,255,204,0.2);
+        }
+        
+        .form-group input::placeholder {
+            color: #64748b;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #00ffcc;
+            color: #020617;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Cairo', sans-serif;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(0,255,204,0.4);
+        }
+        
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .demo-info {
+            background: rgba(0,255,204,0.05);
+            border: 1px solid rgba(0,255,204,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            text-align: center;
+        }
+        
+        .demo-info h4 {
+            color: #00ffcc;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .demo-info p {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        .demo-info code {
+            background: rgba(0,255,204,0.1);
+            color: #00ffcc;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .back-link:hover {
+            color: #00ffcc;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 40px 25px;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="login-container">
+        
+        <div class="logo-section">
+            <img src="logo.png" alt="HNU Logo">
+            <h1>منصة جامعة حلوان الذكية</h1>
+            <p>تسجيل دخول الطلاب</p>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">اسم المستخدم</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    placeholder="أدخل اسم المستخدم"
+                    required
+                >
+            </div>
+            
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="أدخل أي أرقام (مثال: 1234)"
+                    pattern="[0-9]+"
+                    inputmode="numeric"
+                    required
+                >
+            </div>
+            
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            </button>
+        </form>
+        
+        <div class="demo-info">
+            <h4><i class="fas fa-info-circle"></i> بيانات التجربة</h4>
+            <p>
+                للتجربة، استخدم:<br>
+                اسم المستخدم: <code>user</code><br>
+                كلمة المرور: أي أرقام (مثال: <code>1234</code>)
+            </p>
+        </div>
+        
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-right"></i> العودة للصفحة الرئيسية
+        </a>
+        
+    </div>
+    
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorDiv = document.getElementById('errorMessage');
+            
+            // Attempt login
+            const result = window.HNUAuth.login(username, password);
+            
+            if (result.success) {
+                // Redirect to dashboard section in index.html (avoid 404)
+                window.location.href = 'index.html?view=dashboard';
+            } else {
+                // Show error
+                errorDiv.textContent = result.error;
+                errorDiv.style.display = 'block';
+                
+                // Hide after 5 seconds
+                setTimeout(() => {
+                    errorDiv.style.display = 'none';
+                }, 5000);
+            }
+        });
+        
+        // Auto-focus on username field
+        document.getElementById('username').focus();
+    </script>
+    
+</body>
+</html>
