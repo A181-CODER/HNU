@@ -216,9 +216,9 @@
                 <input 
                     type="password" 
                     id="password" 
-                    placeholder="أدخل كلمة المرور (رقم من 0 لـ 9)"
-                    pattern="[0-9]"
-                    maxlength="1"
+                    placeholder="أدخل أي أرقام (مثال: 1234)"
+                    pattern="[0-9]+"
+                    inputmode="numeric"
                     required
                 >
             </div>
@@ -233,7 +233,7 @@
             <p>
                 للتجربة، استخدم:<br>
                 اسم المستخدم: <code>user</code><br>
-                كلمة المرور: أي رقم من <code>0</code> إلى <code>9</code>
+                كلمة المرور: أي أرقام (مثال: <code>1234</code>)
             </p>
         </div>
         
@@ -256,8 +256,8 @@
             const result = window.HNUAuth.login(username, password);
             
             if (result.success) {
-                // Redirect to dashboard
-                window.location.href = '/dashboard.html';
+                // Redirect to dashboard section in index.html (avoid 404)
+                window.location.href = 'index.html?view=dashboard';
             } else {
                 // Show error
                 errorDiv.textContent = result.error;
